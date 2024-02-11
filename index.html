@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #canvas-wrapper {
+            position: absolute;
+            top: 0;
+            left: 50;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #canvas {
+            border: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-wrapper">
+        <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <script>
+        function resizeCanvas() {
+            const canvas = document.getElementById('canvas');
+            const wrapper = document.getElementById('canvas-wrapper');
+            const aspectRatio = canvas.width / canvas.height;
+
+            const maxWidth = wrapper.clientWidth;
+            const maxHeight = wrapper.clientHeight;
+
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            let width, height;
+
+            if (windowWidth / windowHeight > aspectRatio) {
+                height = windowHeight;
+                width = height * aspectRatio;
+            } else {
+                width = windowWidth;
+                height = width / aspectRatio;
+            }
+
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
